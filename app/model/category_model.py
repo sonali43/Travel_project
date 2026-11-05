@@ -16,3 +16,8 @@ class Category(Base):
     description:Mapped[str]=mapped_column(
         String(255),nullable=True
     )
+    
+    place= relationship(
+        "Place",
+        back_populates="category"
+    )
