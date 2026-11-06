@@ -1,12 +1,12 @@
 from datetime import datetime, timezone
-from sqlalchemy import Integer, String, ForeignKey,DateTime,UniqueConstraint
+from sqlalchemy import Integer,ForeignKey,DateTime,UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column,relationship
 from app.db.database import Base
 
 class Wishlist(Base):
     __tablename__="wishlist"
     
-    __table_args__ =(UniqueConstraint("users_id","place_id"))
+    __table_args__ =(UniqueConstraint("users_id","place_id", name="unique_user_wishlist"),)
     
     id:Mapped[int]=mapped_column(
         Integer,primary_key=True,index=True,autoincrement=True
@@ -20,8 +20,10 @@ class Wishlist(Base):
         ForeignKey("place.id"),nullable=False
     )
     
-    created_at=Mapped[datetime] =mapped_column(
-        DateTime(timezone=True),default=lambda:datetime.now(timezone.utc),nullable=False
+    created_at:Mapped[datetime] =mapped_column(
+        DateTime,
+        default=datetime.now(timezone.utc),
+        nullable=False
     )
     
     users = relationship(
