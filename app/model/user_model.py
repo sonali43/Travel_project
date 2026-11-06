@@ -30,3 +30,8 @@ class Users(Base):
         "Review",
         back_populates="users"
     )
+    
+    wishlist = relationship(
+        "Wishlist",
+        back_populates="users"
+    )

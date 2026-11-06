@@ -55,3 +55,7 @@ class Place(Base):
         back_populates="place"
     )
     
+    wishlist=relationship(
+        "Wishlist",
+        back_populates="place"
+    )
