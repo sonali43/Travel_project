@@ -26,3 +26,7 @@ class Users(Base):
         String(20),default="users",nullable=False
     )
     
+    review = relationship(
+        "Review",
+        back_populates="users"
+    )

@@ -50,3 +50,8 @@ class Place(Base):
         back_populates="place"
     )
     
+    review = relationship(
+        "Review",
+        back_populates="place"
+    )
+    
