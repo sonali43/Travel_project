@@ -27,7 +27,7 @@ class UserRepository:
         return self.db.query(Users).filter(Users.email==email).first()
     
     def get_all_user(self):
-        user=self.get_user_by_id(user)
+        user=self.get_user_by_id(Users).all()
     
     def update_user(self,user_id:int,user_data):
         user=self.get_user_by_id(user_id)
