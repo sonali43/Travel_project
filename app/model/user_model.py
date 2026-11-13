@@ -1,4 +1,5 @@
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, String, Enum as SQLEnum
+from app.enum.enum import UserRole
 from sqlalchemy.orm import Mapped,mapped_column, relationship
 
 from app.db.database import Base
@@ -22,9 +23,12 @@ class Users(Base):
         String(255),nullable=False
     )
     
-    role:Mapped[str]=mapped_column(
-        String(20),default="users",nullable=False
+    role: Mapped[UserRole] = mapped_column(
+        SQLEnum(UserRole, name="user_role"),
+        default=UserRole.USER,
+        nullable=False
     )
+
     
     review = relationship(
         "Review",
