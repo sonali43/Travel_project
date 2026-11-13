@@ -25,7 +25,7 @@ class UserService:
             )
         return user
     
-    def get_user_by_email(self,email_id:int):
+    def get_user_by_email(self,email_id:str):
         user=self.repo.get_user_by_email(email_id)
         if not user:
             raise HTTPException(
