@@ -21,3 +21,18 @@ def get_user_by_id(user_id:int, db: Session = Depends(get_db)):
 def get_user_by_email_id(email_id:str,db:Session=Depends(get_db)):
     service=UserService(db)
     return service.get_user_by_email(email_id)
+
+@router.get("/")
+def get_all_user(db:Session=Depends(get_db)):
+    service=UserService(db)
+    return service.get_all_user()
+
+@router.put("/{user_id}")
+def update_user(user_id:int,user_data=UserUpdate,db:Session=Depends(get_db)):
+    service= UserService(db)
+    return service.update_user(user_id,user_data)
+
+@router.delete("/{user_id}")
+def delete_user(user_id: int,db: Session = Depends(get_db)):
+    service = UserService(db)
+    return service.delete_user(user_id)
