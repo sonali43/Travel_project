@@ -4,7 +4,7 @@ from app.schema.category_schema import CategorySchema,CategoryUpdate
 
 class CategoryRepo:
     
-    def __init__(self,db=Session):
+    def __init__(self,db:Session):
         self.db=db
         
     def create_category(self,category_data:CategorySchema):
@@ -38,6 +38,8 @@ class CategoryRepo:
                 
             self.db.commit()
             self.db.refresh(category)
+            
+            return category
             
     def delete_category(self,category_id:int):
         delete=self.get_category_by_id(category_id)
