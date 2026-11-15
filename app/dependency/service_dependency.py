@@ -7,3 +7,4 @@ def get_user_service(db=Depends(get_db)):
     user_repository = UserRepository(db)
     user_service = UserService(user_repository)
     return user_service
+
