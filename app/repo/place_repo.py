@@ -15,7 +15,7 @@ class PlaceRepository:
             state=place_date.state,
             estimated_cost=place_date.estimated_cost,
             latitude=place_date.latitude,
-            longitude=place_date.longitudde,
+            longitude=place_date.longitude,
             category_id=place_date.category_id
         )
         
@@ -41,7 +41,7 @@ class PlaceRepository:
         return self.db.query(Place).filter(Place.state.ilike(f"%{state}%")).all()
     
     def update_place(self,place_id:int,place_date:PlaceUpdate):
-        place=self.get_place_by_id.items(place_id)
+        place=self.get_place_by_id(place_id)
         if place:
             update_data=place_date.model_dump(exclude_unset=True)
             for key, value in update_data.items():
