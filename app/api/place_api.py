@@ -12,12 +12,12 @@ def create_place(place_data:PlaceSchema,db:Session=Depends(get_db)):
     return service.create_place(place_data)
 
 @place_router.get("/{place_id}",response_model=PlaceResponse)
-def get_place_by_id(place_id:PlaceSchema,db:Session=Depends(get_db)):
+def get_place_by_id(place_id:int,db:Session=Depends(get_db)):
     service=PlaceService(db)
     return service.get_place_by_id(place_id)
 
 @place_router.get("/{category_id}",response_model=PlaceResponse)
-def get_place_by_category_id(category_id:PlaceSchema,db:Session=Depends(get_db)):
+def get_place_by_category_id(category_id:int,db:Session=Depends(get_db)):
     service=PlaceService(db)
     return service.get_place_by_category_id(category_id)
 
@@ -27,12 +27,12 @@ def get_place_by_all(db:Session=Depends(get_db)):
     return service.get_place_by_all()
 
 @place_router.get("/{city}",response_model=PlaceResponse)
-def get_place_by_city(city:PlaceSchema,db:Session=Depends(get_db)):
+def get_place_by_city(city:str,db:Session=Depends(get_db)):
     service=PlaceService(db)
     return service.get_place_by_city(city)
 
 @place_router.get("/{state}",response_model=PlaceResponse)
-def get_place_by_state(state:PlaceSchema,db:Session=Depends(get_db)):
+def get_place_by_state(state:str,db:Session=Depends(get_db)):
     service=PlaceService(db)
     return service.get_place_by_state(state)
 

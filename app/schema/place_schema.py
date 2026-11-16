@@ -20,7 +20,7 @@ class PlaceUpdate(BaseModel):
     estimated_cost:float |None=Field(default=None, ge=0)
     latitude:float |None=Field(default=None, ge= -90, le=90)
     longitude:float |None=Field(default=None, ge=-180, le=180)
-    category_id |None=None
+    category_id : int|None=None
     
 class PlaceResponse(BaseModel):
     id:int
