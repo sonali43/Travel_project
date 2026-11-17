@@ -4,7 +4,7 @@ from app.db.database import get_db
 from app.service.review_service import ReviewService
 from app.schema.review_schema import ReviewSchema,ReviewUpdate,ReviewResponse
 
-review_router=APIRouter(prefix="/review",tags=["/Review"])
+review_router=APIRouter(prefix="/review",tags=["Review"])
 
 @review_router.post("/",response_model=ReviewResponse)
 def create_review(review_data:ReviewSchema,db:Session=Depends(get_db)):
