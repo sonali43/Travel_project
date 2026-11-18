@@ -7,6 +7,8 @@ from app.repo.place_repo import PlaceRepository
 from app.service.place_service import PlaceService
 from app.repo.review_repo import ReviewRepository
 from app.service.review_service import ReviewService
+from app.repo.wishlist_repo import WishlistRepository
+from app.service.wishlist_service import WishlistService
 from app.db.database import get_db
 
 def get_user_service(db=Depends(get_db)):
@@ -28,3 +30,8 @@ def get_review_service(db=Depends(get_db)):
     review_repository=ReviewRepository(db)
     review_service=ReviewService(review_repository)
     return review_service
+
+def get_wishlist_service(db=Depends(get_db)):
+    wishlist_repo=WishlistRepository(db)
+    wishlist_service=WishlistService(wishlist_repo)
+    return wishlist_service
