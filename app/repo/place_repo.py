@@ -3,7 +3,7 @@ from app.model.place_model import Place
 from app.schema.place_schema import PlaceSchema,PlaceUpdate
 
 class PlaceRepository:
-    def __tablename__ (self,db:Session):
+    def __init__ (self,db:Session):
         self.db=db
         
     def create_place(self,place_date:PlaceSchema):

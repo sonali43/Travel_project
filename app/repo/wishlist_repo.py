@@ -3,7 +3,7 @@ from app.model.wishlist_model import Wishlist
 from app.schema.wishlist_schema import WishlistSchema
 
 class WishlistRepository:
-    def __tablename__(self,db:Session):
+    def __init__(self,db:Session):
         self.db=db
         
     def create_wishlist(self,wishlit_data:WishlistSchema):
