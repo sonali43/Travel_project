@@ -10,8 +10,7 @@ class UserRepository:
         new_user=Users(
             name=user_data.name,
             email=user_data.email,
-            password=user_data.password,
-            role=user_data.role
+            password=user_data.password
         )
         
         self.db.add(new_user)
