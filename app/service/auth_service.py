@@ -41,7 +41,7 @@ class AuthService:
             )
             
         access_token=create_access_token(
-            date={
+            data={
                 "sub":str(user.id),
                 "role":user.role
             }

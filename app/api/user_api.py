@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.service.user_service import UserService
 from app.schema.user_schema import UserSchema,UserUpdate,UserResponse
+from app.auth.auth_dependency import get_current_user
 
 user_router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -36,3 +37,7 @@ def update_user(user_id:int,user_data=UserUpdate,db:Session=Depends(get_db)):
 def delete_user(user_id: int,db: Session = Depends(get_db)):
     service = UserService(db)
     return service.delete_user(user_id)
+
+@user_router.get("/me")
+def get_my_profile(current_user=Depends(get_current_user)):
+    return current_user
