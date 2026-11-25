@@ -3,13 +3,14 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.schema.place_schema import PlaceSchema,PlaceResponse,PlaceUpdate
 from app.service.place_service import PlaceService
+from app.auth.auth_dependency import get_admin_user
 
 place_router= APIRouter(prefix="/place",tags=["Place"])
 
 @place_router.post("/",response_model=PlaceResponse)
-def create_place(place_data:PlaceSchema,db:Session=Depends(get_db)):
+def create_place(place_data:PlaceSchema,db:Session=Depends(get_db),current_data=Depends(get_admin_user)):
     service=PlaceService(db)
-    return service.create_place(place_data)
+    return service.create_place(place_data,current_data)
 
 @place_router.get("/{place_id}",response_model=PlaceResponse)
 def get_place_by_id(place_id:int,db:Session=Depends(get_db)):
@@ -37,11 +38,11 @@ def get_place_by_state(state:str,db:Session=Depends(get_db)):
     return service.get_place_by_state(state)
 
 @place_router.put("/{place_id}", response_model=PlaceResponse)
-def update_place(place_id:int,place_data=PlaceUpdate,db:Session=Depends(get_db)):
+def update_place(place_id:int,place_data=PlaceUpdate,db:Session=Depends(get_db),current_user=Depends(get_admin_user)):
     service= PlaceService(db)
-    return service.update_place(place_id,place_data)
+    return service.update_place(place_id,place_data,current_user)
 
 @place_router.delete("/{place_id}", response_model=PlaceResponse)
-def delete_place(place_id: int,db: Session = Depends(get_db)):
+def delete_place(place_id: int,db: Session = Depends(get_db),current_user=Depends(get_admin_user)):
     service = PlaceService(db)
-    return service.delete_place(place_id)
+    return service.delete_place(place_id,current_user)
