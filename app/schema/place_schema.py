@@ -8,7 +8,7 @@ class PlaceSchema(BaseModel):
     state:str
     estimated_cost:float=Field(ge=0)
     latitude:float=Field(ge=-90,le=90)
-    longitudde: float = Field(ge=-180, le=180)
+    longitude: float = Field(ge=-180, le=180)
     category_id:int
     
 class PlaceUpdate(BaseModel):

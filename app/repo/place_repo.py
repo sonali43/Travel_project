@@ -40,16 +40,20 @@ class PlaceRepository:
     def get_place_by_state(self,state:str):
         return self.db.query(Place).filter(Place.state.ilike(f"%{state}%")).all()
     
-    def update_place(self,place_id:int,place_date:PlaceUpdate):
-        place=self.get_place_by_id(place_id)
-        if place:
-            update_data=place_date.model_dump(exclude_unset=True)
-            for key, value in update_data.items():
-                setattr(place, key, value)
-                
-            self.db.commit()
-            self.db.refresh(place)
-            
+    def update_place(self, place_id: int, place_data: PlaceUpdate):
+        place = self.get_place_by_id(place_id)
+
+        if not place:
+            return None
+
+        update_data = place_data.model_dump(exclude_unset=True)
+
+        for key, value in update_data.items():
+            setattr(place, key, value)
+
+        self.db.commit()
+        self.db.refresh(place)
+
         return place
     
     def delete_place(self,place_id:int):
