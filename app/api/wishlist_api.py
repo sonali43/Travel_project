@@ -6,6 +6,7 @@ from app.service.wishlist_service import WishlistService
 from app.schema.wishlist_schema import WishlistSchema, WishlistRespone
 
 
+
 wishlist_router = APIRouter(prefix="/wishlists",tags=["Wishlist"])
 
 @wishlist_router.post("/", response_model=WishlistRespone)
