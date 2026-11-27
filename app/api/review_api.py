@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.service.review_service import ReviewService
 from app.schema.review_schema import ReviewSchema,ReviewUpdate,ReviewResponse
+from app.auth.auth_dependency import get_admin_user
 
 review_router=APIRouter(prefix="/review",tags=["Review"])
 
 @review_router.post("/",response_model=ReviewResponse)
-def create_review(review_data:ReviewSchema,db:Session=Depends(get_db)):
+def create_review(review_data:ReviewSchema,db:Session=Depends(get_db),current_user=Depends(get_admin_user)):
     service=ReviewService(db)
     return service.create_review(review_data)
 
@@ -27,11 +28,11 @@ def get_review_by_place_id(place_id:int,db:Session=Depends(get_db)):
     return service.get_review_by_place_id(place_id)
 
 @review_router.put("/{review_id}",response_model=ReviewResponse)
-def update_review(review_id:int,db:Session=Depends(get_db)):
+def update_review(review_id:int,review_data:ReviewUpdate,db:Session=Depends(get_db),current_user=Depends(get_admin_user)):
     service=ReviewService(db)
-    return service.update_review(review_id)
+    return service.update_review(review_id,review_data)
 
 @review_router.delete("/{review_id}",response_model=ReviewResponse)
-def delete_review(review_id:int,db:Session=Depends(get_db)):
+def delete_review(review_id:int,db:Session=Depends(get_db),current_user=Depends(get_admin_user)):
     service=ReviewService(db)
     return service.delete_review(review_id)
